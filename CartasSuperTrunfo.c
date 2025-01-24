@@ -11,6 +11,8 @@ typedef struct {
     float area; // Área da cidade em km²
     float pib; // PIB da cidade em bilhões de reais
     int pontos_turisticos; // Número de pontos turísticos
+    float densidade_populacional; // População / Área
+    float pib_per_capita; // PIB / População
 } Cidade;
 
 int main() {
@@ -43,6 +45,19 @@ int main() {
             printf("Digite o número de pontos turísticos: ");
             scanf("%d", &cartas[i][j].pontos_turisticos);
 
+            // Calcular Densidade Populacional e PIB per Capita
+            if (cartas[i][j].area > 0) {
+                cartas[i][j].densidade_populacional = cartas[i][j].populacao / cartas[i][j].area;
+            } else {
+                cartas[i][j].densidade_populacional = 0;
+            }
+
+            if (cartas[i][j].populacao > 0) {
+                cartas[i][j].pib_per_capita = cartas[i][j].pib * 1000000000 / cartas[i][j].populacao; // Converter PIB para reais
+            } else {
+                cartas[i][j].pib_per_capita = 0;
+            }
+
             printf("\n");
         }
     }
@@ -57,6 +72,8 @@ int main() {
             printf("Área: %.2f km²\n", cartas[i][j].area);
             printf("PIB: %.2f bilhões de reais\n", cartas[i][j].pib);
             printf("Pontos turísticos: %d\n", cartas[i][j].pontos_turisticos);
+            printf("Densidade populacional: %.2f hab/km²\n", cartas[i][j].densidade_populacional);
+            printf("PIB per Capita: %.2f reais\n", cartas[i][j].pib_per_capita);
             printf("------------------------\n");
         }
     }
